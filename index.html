@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Código Feminino — Oferta Exclusiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c0c; --bg-soft:#141210; --bg-card:#1a1714;
+    --gold:#c9a24a; --gold-light:#e6cd8a; --cream:#d8cba8;
+    --green:#0f7865; --green-light:#22a186;
+    --red:#b5473f; --text-muted:#9a9488;
+    --crimson:#e63946; --amber:#f2b705;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:#efe9dd; font-family:'Inter',sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:48px 24px 80px;}
+
+  /* barra de cronômetro fixa — conteúdo rola por baixo dela */
+  #timer-bar{
+    position:fixed; top:0; left:0; width:100%; z-index:999;
+    background:linear-gradient(180deg, #ff4d52, var(--crimson));
+    border-bottom:1px solid rgba(0,0,0,.35);
+    padding:10px 16px; text-align:center;
+    box-shadow:0 6px 20px rgba(0,0,0,.5);
+  }
+  #timer-bar .timer-label{
+    font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase; color:#ffffff;
+    font-weight:700; margin-right:8px;
+  }
+  #timer-bar .timer-clock{
+    font-family:'Playfair Display', serif; font-weight:800; font-size:19px;
+    color:#fff566; letter-spacing:1px;
+  }
+  body{ padding-top:46px; }
+
+  .kicker{
+    text-align:center; font-size:13px; letter-spacing:4px; text-transform:uppercase;
+    color:var(--amber); margin-bottom:18px; font-weight:700;
+  }
+  h1{
+    font-family:'Playfair Display', serif; font-weight:800; text-align:center;
+    font-size:clamp(28px, 5.5vw, 44px); line-height:1.22; color:#f5efe0; margin-bottom:18px;
+  }
+  h1 .accent{color:var(--amber);}
+  .lede{ text-align:center; font-size:18px; color:var(--cream); max-width:580px; margin:0 auto 36px; }
+  .divider{width:80px; height:2px; background:var(--gold); margin:36px auto; opacity:.6;}
+
+  .hero-row{display:flex; justify-content:center; margin-bottom:36px;}
+  .hero-row svg{width:100%; max-width:280px; height:auto; filter:drop-shadow(0 20px 45px rgba(0,0,0,.6));}
+
+  .panel{
+    background:var(--bg-soft); border:1px solid rgba(201,162,74,0.25); border-radius:14px;
+    padding:30px 26px; margin-bottom:28px;
+  }
+  .panel h2{
+    font-family:'Playfair Display', serif; font-size:22px; color:var(--gold-light);
+    margin-bottom:18px; text-align:center;
+  }
+  .list{list-style:none;}
+  .list li{
+    display:flex; gap:12px; padding:11px 0; border-bottom:1px solid rgba(255,255,255,0.06);
+    font-size:15.5px; color:#e5ddc9;
+  }
+  .list li:last-child{border-bottom:none;}
+  .list li .num{ flex:0 0 26px; color:var(--amber); font-family:'Playfair Display', serif; font-weight:700; }
+  .list li b{color:#fff;}
+
+  .feature-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:24px 0; }
+  @media (max-width:520px){ .feature-grid{grid-template-columns:1fr;} }
+  .feature-card{
+    background:var(--bg-card); border:1px solid rgba(201,162,74,.2); border-radius:12px;
+    padding:18px; text-align:center;
+  }
+  .feature-card .icon{font-size:26px; margin-bottom:8px;}
+  .feature-card .title{font-weight:700; color:var(--gold-light); font-size:14.5px; margin-bottom:4px;}
+  .feature-card .desc{font-size:12.5px; color:var(--text-muted);}
+
+  .price-box{ text-align:center; padding:30px 20px 10px; }
+  .old-price{ color:var(--text-muted); text-decoration:line-through; font-size:17px; }
+  .new-price{
+    font-family:'Playfair Display', serif; font-size:52px; font-weight:900;
+    color:var(--amber); margin:6px 0 2px;
+  }
+  .new-price small{font-size:20px; font-weight:600; color:var(--cream);}
+  .price-alt{ font-size:15px; color:var(--cream); margin-bottom:4px; }
+  .price-note{font-size:13px; color:var(--text-muted); margin-bottom:28px;}
+
+  .cta-wrap{ display:flex; flex-direction:column; align-items:center; gap:14px; margin:8px auto 4px; }
+
+  cakto-upsell-accept::part(button){
+    background: linear-gradient(180deg, #ff5a5f, var(--crimson));
+    color: #ffffff; font-family:'Inter', sans-serif; font-weight:800; font-size:18.5px;
+    padding:19px 30px; border-radius:10px; border:none;
+    box-shadow:0 12px 32px rgba(230,57,70,0.4); width:100%; max-width:480px; cursor:pointer;
+  }
+  cakto-upsell-reject::part(button){
+    background:transparent; color: var(--text-muted); font-family:'Inter', sans-serif;
+    font-size:14px; text-decoration:underline; border:none; padding:10px; cursor:pointer;
+  }
+
+  .urgency{ text-align:center; font-size:13px; color:var(--crimson); margin-top:18px; font-weight:700; }
+
+  .badge-row{display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:8px;}
+  .badge-row span{
+    background:var(--bg-card); border:1px solid rgba(201,162,74,.3); border-radius:999px;
+    padding:6px 14px; font-size:12px; color:var(--gold-light);
+  }
+</style>
+</head>
+<body>
+
+<div id="timer-bar">
+  <span class="timer-label">Esta oferta expira em</span>
+  <span class="timer-clock" id="timer-clock">05:00</span>
+</div>
+
+<div class="wrap">
+
+  <div class="kicker">Só aparece nesta página, uma vez</div>
+  <h1>Pare De Usar <span class="accent">Ela</span> Como Cobaia Do Seu Treino</h1>
+  <p class="lede">Você aprendeu o que falar. Mas cada vez que testa isso direto nela, sem treino, e erra — a mensagem que chega é clara: <b>você não estava pronto</b>. E não existe "desfazer" numa conversa real. O Código Feminino é o aplicativo onde você erra, aprende e acerta — com 10 personagens femininas diferentes — antes de arriscar a chance de verdade.</p>
+
+  <div class="hero-row">
+    <svg viewBox="0 0 310 430" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="heroBg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1c1917"/>
+            <stop offset="100%" stop-color="#0a0a0a"/>
+          </linearGradient>
+          <linearGradient id="av1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#e63946"/><stop offset="100%" stop-color="#7a1620"/>
+          </linearGradient>
+          <linearGradient id="av2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f2b705"/><stop offset="100%" stop-color="#8a5e02"/>
+          </linearGradient>
+          <linearGradient id="av3" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#c9a24a"/><stop offset="100%" stop-color="#5c4413"/>
+          </linearGradient>
+          <linearGradient id="meterGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#e63946"/>
+            <stop offset="55%" stop-color="#f2b705"/>
+            <stop offset="100%" stop-color="#22a186"/>
+          </linearGradient>
+        </defs>
+
+        <!-- chassi do celular -->
+        <rect x="10" y="4" width="280" height="422" rx="38" fill="#050505" stroke="#3a3226" stroke-width="2"/>
+        <rect x="2" y="130" width="8" height="46" rx="3" fill="#2a251e"/>
+        <rect x="2" y="185" width="8" height="70" rx="3" fill="#2a251e"/>
+        <rect x="290" y="150" width="8" height="60" rx="3" fill="#2a251e"/>
+
+        <!-- tela -->
+        <rect x="20" y="16" width="260" height="398" rx="28" fill="url(#heroBg)"/>
+
+        <!-- notch + status bar -->
+        <rect x="118" y="24" width="64" height="18" rx="9" fill="#000"/>
+        <text x="40" y="36" font-family="Inter, sans-serif" font-size="10" fill="#e9e2d0" font-weight="600">21:47</text>
+        <text x="240" y="36" font-family="Inter, sans-serif" font-size="10" fill="#e9e2d0" font-weight="600">100%</text>
+
+        <!-- avatares das personas -->
+        <circle cx="72" cy="66" r="21" fill="url(#av1)"/>
+        <circle cx="72" cy="66" r="21" fill="none" stroke="#f2b705" stroke-width="2.4"/>
+
+        <circle cx="99" cy="66" r="21" fill="url(#av2)"/>
+        <circle cx="99" cy="66" r="21" fill="none" stroke="#e63946" stroke-width="2.4"/>
+
+        <circle cx="126" cy="66" r="21" fill="url(#av3)"/>
+        <circle cx="126" cy="66" r="21" fill="none" stroke="#c9a24a" stroke-width="2.4"/>
+
+        <text x="156" y="70" font-family="Inter, sans-serif" font-size="12" fill="#9a9488">+7 outras</text>
+
+        <!-- medidor de interesse -->
+        <text x="38" y="106" font-family="Inter, sans-serif" font-size="10" fill="#9a9488" letter-spacing="1">INTERESSE DELA</text>
+        <rect x="38" y="112" width="224" height="9" rx="4.5" fill="#241f18"/>
+        <rect x="38" y="112" width="158" height="9" rx="4.5" fill="url(#meterGrad)"/>
+
+        <!-- balão de mensagem dela -->
+        <rect x="38" y="134" width="196" height="52" rx="14" fill="#1c1916" stroke="#332c22" stroke-width="1"/>
+        <text x="52" y="157" font-family="Inter, sans-serif" font-size="11.5" fill="#f0ead9">"você fala isso com todo</text>
+        <text x="52" y="173" font-family="Inter, sans-serif" font-size="11.5" fill="#f0ead9">mundo né? 😏"</text>
+
+        <!-- opções de resposta -->
+        <rect x="38" y="198" width="224" height="34" rx="10" fill="#241d0f" stroke="#f2b705" stroke-width="1.8"/>
+        <text x="50" y="219" font-family="Inter, sans-serif" font-size="10.5" fill="#f5e8c8">"Se eu falasse com todo mundo...</text>
+
+        <rect x="38" y="238" width="224" height="34" rx="10" fill="#171310" stroke="#332c22" stroke-width="1"/>
+        <text x="50" y="259" font-family="Inter, sans-serif" font-size="10.5" fill="#9a9488">"Não, sério, com você é diferente"</text>
+
+        <rect x="38" y="278" width="224" height="34" rx="10" fill="#171310" stroke="#332c22" stroke-width="1"/>
+        <text x="50" y="299" font-family="Inter, sans-serif" font-size="10.5" fill="#9a9488">"Pode ser, mas..."</text>
+
+        <!-- pontuação flutuante -->
+        <text x="248" y="212" font-family="Georgia, serif" font-size="21" font-weight="900" fill="#22a186">+3</text>
+
+        <!-- selos -->
+        <rect x="38" y="326" width="118" height="26" rx="13" fill="#1c1916" stroke="#f2b705" stroke-width="1.3"/>
+        <text x="50" y="343" font-family="Inter, sans-serif" font-size="10" fill="#f2d98a">🏅 Impecável</text>
+
+        <rect x="164" y="326" width="98" height="26" rx="13" fill="#1c1916" stroke="#e63946" stroke-width="1.3"/>
+        <text x="176" y="343" font-family="Inter, sans-serif" font-size="10" fill="#f0a8a8">🔥 Combo x4</text>
+
+        <text x="150" y="384" font-family="Playfair Display, serif" font-size="13" font-weight="700" fill="#f2b705" text-anchor="middle" letter-spacing="1">10 PERSONAS · FEEDBACK REAL</text>
+
+        <!-- barra home -->
+        <rect x="122" y="400" width="56" height="4" rx="2" fill="#4a4030"/>
+      </svg>
+  </div>
+
+  <div class="badge-row">
+    <span>📲 App de Simulação de Conversas</span>
+    <span>👥 10 Personalidades</span>
+    <span>📊 Diagnóstico Pessoal</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="panel">
+    <h2>O Código Feminino: Simulador de Conversa</h2>
+    <ul class="list">
+      <li><span class="num">01</span><span><b>10 mulheres, 10 personalidades reais</b> — da cética à popular, da ocupada à reconquista</span></li>
+      <li><span class="num">02</span><span><b>Decisões que mudam o rumo</b> da conversa, com medidor de interesse em tempo real</span></li>
+      <li><span class="num">03</span><span><b>Feedback imediato</b> explicando exatamente por que cada resposta funciona ou não</span></li>
+      <li><span class="num">04</span><span><b>Diagnóstico final do seu estilo</b> — confiante, neutro ou carente — com o que ajustar</span></li>
+      <li><span class="num">05</span><span><b>Sistema de conquistas e pontuação</b> pra você treinar até virar hábito, não decoreba</span></li>
+    </ul>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="icon">🧊</div>
+      <div class="title">A Cética</div>
+      <div class="desc">Testa tudo antes de confiar</div>
+    </div>
+    <div class="feature-card">
+      <div class="icon">👑</div>
+      <div class="title">A Popular</div>
+      <div class="desc">Só nota quem não a trata como troféu</div>
+    </div>
+    <div class="feature-card">
+      <div class="icon">💼</div>
+      <div class="title">A Ambiciosa</div>
+      <div class="desc">Não abre espaço pra quem compete com a carreira</div>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🌙</div>
+      <div class="title">Reconquista</div>
+      <div class="desc">A régua muda quando o silêncio já aconteceu</div>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-bottom:8px;">Isso não é teoria nem mais um PDF pra empilhar. É treino de verdade, no seu ritmo, quantas vezes você precisar — direto no app, instalável no seu celular — até errar deixar de ser sua reação padrão.</p>
+
+  <div class="panel price-box">
+    <div class="old-price">De R$697,00</div>
+    <div class="new-price">12x de R$10,12</div>
+    <div class="price-alt">ou R$97,90 à vista</div>
+    <div class="price-note">Pagamento único · Acesso vitalício</div>
+
+    <div class="cta-wrap">
+      <cakto-upsell-buttons>
+        <cakto-upsell-accept
+          bg-color="#e63946"
+          text-color="#ffffff"
+          upsell-accept-url="members_area"
+          offer-id="SUBSTITUA_PELO_OFFER_ID_DO_SIMULADOR"
+          app-base-url="https://app.cakto.com.br"
+          offer-type="upsell"
+          upsell-reject-url="/downsell-simulador"
+        >
+          Sim, quero destravar O Código Feminino
+        </cakto-upsell-accept>
+        <cakto-upsell-reject
+          upsell-reject-url="/downsell-simulador"
+        >
+          Não, prefiro continuar sem o simulador
+        </cakto-upsell-reject>
+      </cakto-upsell-buttons>
+    </div>
+
+    <div class="urgency">Esta oferta não aparece novamente depois que você sair desta página</div>
+  </div>
+
+</div>
+
+<script type="text/javascript" src="https://caktoscripts.nyc3.cdn.digitaloceanspaces.com/upsell.js"></script>
+<script>
+  // Cronômetro regressivo de 5 minutos — fica fixo no topo, conteúdo rola por baixo
+  (function(){
+    let secondsLeft = 5 * 60;
+    const clockEl = document.getElementById('timer-clock');
+
+    function render(){
+      const m = String(Math.floor(secondsLeft / 60)).padStart(2, '0');
+      const s = String(secondsLeft % 60).padStart(2, '0');
+      clockEl.textContent = m + ':' + s;
+    }
+
+    render();
+    const interval = setInterval(function(){
+      secondsLeft--;
+      if(secondsLeft <= 0){
+        secondsLeft = 0;
+        render();
+        clearInterval(interval);
+        document.querySelector('.timer-label').textContent = 'Oferta encerrada';
+        return;
+      }
+      render();
+    }, 1000);
+  })();
+</script>
+</body>
+</html>
